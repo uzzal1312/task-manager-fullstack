@@ -20,6 +20,38 @@ When implementing the application:
 
 ---
 
+## 🚨 SYSTEM INSTRUCTIONS FOR CODE GENERATION (COPILOT CONTROL)
+
+Copilot MUST assume this repository starts completely EMPTY.
+
+Copilot MUST:
+- Generate the complete backend project from scratch
+- Create all required directories and files automatically
+- Generate a Spring Boot backend project using Maven
+- Create the full standard Spring Boot file structure
+- Generate all configuration, source, and resource files
+- Proceed without asking setup or clarification questions
+
+Copilot MUST NOT:
+- Ask the user to manually create files or folders
+- Ask questions about environment or setup
+- Pause implementation waiting for confirmation
+
+## Database Instructions (Copilot-Controlled)
+
+- A MySQL database named `productivity_hub` already exists on localhost
+- Assume MySQL is running and accessible
+- Do NOT generate SQL schema files or migration scripts
+- Do NOT use Flyway or Liquibase
+- Use Spring Boot with JPA/Hibernate exclusively
+- Define all database tables using Java `@Entity` classes only
+- Use Spring Data JPA repositories for data access
+- Configure Hibernate to automatically create and update tables
+- Use `spring.jpa.hibernate.ddl-auto=update`
+- Copilot MUST generate `application.properties` with MySQL configuration
+- Do NOT include database creation or setup instructions
+
+
 ## Project Overview
 
 Productivity & Collaboration Hub is a full-stack web application designed to help teams manage projects, collaborate in real time, and track productivity from a single platform.
@@ -458,6 +490,29 @@ Used for:
 - Background cleanup jobs
 
 ---
+## Backend Bootstrap Requirements (Mandatory)
+
+Copilot MUST generate the backend with the following:
+
+- Spring Boot application (Maven)
+- Java version 17 or higher
+- `pom.xml` with required dependencies:
+  - Spring Web
+  - Spring Data JPA
+  - Spring Security
+  - MySQL Driver
+  - WebSocket
+- Main Spring Boot application class
+- Standard package structure:
+  - controller
+  - service
+  - repository
+  - model / entity
+  - config
+  - security
+- `application.properties` configured for MySQL and JPA
+
+---
 
 ## Suggested Project Structure
 
@@ -490,3 +545,28 @@ utils/
 - Use WebSockets only for real-time features
 - Ensure all pages are visually complete
 - Maintain readable and well-documented code
+
+---
+
+## Deployment & Run Instructions (Copilot-Controlled)
+
+Copilot MUST generate code or scripts to allow the project to run locally and optionally in GitHub Codespaces.
+
+Copilot MUST:
+- Provide instructions or scripts to run backend and frontend automatically
+- Configure backend to connect to MySQL on localhost
+- Ensure JPA/Hibernate generates tables automatically on startup
+- Allow optional H2 in-memory database for Codespaces / demo only
+- Provide proper port configuration:
+  - Backend: 8080
+  - Frontend: 3000
+- Generate `README_RUN.md` or `run_instructions.md` with clear run commands
+- Include npm / yarn commands for frontend
+- Include Maven commands for backend
+- Include steps for switching between local MySQL and H2 for Codespaces
+- Provide instructions to verify the project is running (open browser, sample URLs)
+
+Copilot MUST NOT:
+- Attempt to deploy to cloud automatically
+- Generate complex infrastructure (AWS / Docker / Railway) unless explicitly asked
+- Modify database creation assumptions (still relies on existing `productivity_hub` database)
