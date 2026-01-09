@@ -1,39 +1,67 @@
-# Run Instructions
+# How to Run the Application
 
-## Backend (Spring Boot)
-1. Ensure MySQL is running locally with a database named `productivity_hub`.
-2. Update credentials in `backend/src/main/resources/application.properties` if needed.
-3. Install dependencies and run:
-   ```bash
-   cd backend
-   mvn spring-boot:run
-   ```
-   - Server runs on `http://localhost:8080`.
-   - H2 demo profile: `SPRING_PROFILES_ACTIVE=demo mvn spring-boot:run` (uses in-memory H2).
+## Run Everything with One Command
 
-## Frontend (React + Vite + Tailwind)
-1. Install dependencies:
-   ```bash
-   cd frontend
-   npm install
-   ```
-2. Start dev server:
-   ```bash
-   npm run dev
-   ```
-   - App runs on `http://localhost:3000`.
-   - Vite proxy forwards `/api` and `/ws` to backend.
+```bash
+./start.sh
+```
 
-## Key URLs
-- Landing: http://localhost:3000/
-- Dashboard: http://localhost:3000/app
-- API Auth: POST http://localhost:8080/api/auth/login
-- WebSocket STOMP endpoint: ws://localhost:8080/ws
+That's it! This will start MySQL, backend, and frontend.
 
-## Build
-- Backend: `mvn clean package`
-- Frontend: `npm run build`
+**Access the app:** http://localhost:3000
 
-## Notes
-- Hibernate auto-creates/updates tables via `spring.jpa.hibernate.ddl-auto=update`.
-- File uploads store under `backend/uploads` by default.
+**To stop:** Press `Ctrl+C` then run: `pkill -f "mvn spring-boot:run"`
+
+---
+
+## Manual Steps (If needed)
+
+### 1. Start MySQL
+```bash
+sudo service mysql start
+```
+
+### 2. Start Backend (Terminal 1)
+```bash
+cd backend
+mvn spring-boot:run
+```
+Wait for: "Started ProductivityHubApplication"
+
+### 3. Start Frontend (Terminal 2)
+```bash
+cd frontend
+npm run dev
+```
+
+### 4. Open App
+- **Codespaces:** Click port 3000 in PORTS tab
+- **Local:** http://localhost:3000
+
+---
+
+## Database Info
+
+- **Username:** root
+- **Password:** u11das6532@r
+- **Database:** productivity_hub
+- **View in VS Code:** Install "MySQL" extension by Jun Han
+
+---
+
+## Troubleshooting
+
+**MySQL won't start:**
+```bash
+sudo service mysql restart
+```
+
+**Port in use:**
+```bash
+pkill -f "mvn spring-boot:run"
+```
+
+**Database not found:**
+```bash
+mysql -u root -p'u11das6532@r' < database_setup.sql
+```
